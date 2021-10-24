@@ -17,3 +17,11 @@ A sample request can be sent to the created endpoint using the following command
     - The response should be `{"prediction":4.1316}`
 
 All resources can be removed using `make remove-infra`
+
+The env variables store the following information
+- ACCOUNT: Your account ID 
+- AWS_REGION: The region you want to deploy to
+- AWS_ACCESS_KEY_ID: Your AWS role's access key
+- AWS_SECRET_ACCESS_KEY: Your AWS role's secret key
+- REPOSITORY_NAME: The name of the ECR repository you want to use 
+- ROLE_NAME: The name of the role used for Fargate Task
