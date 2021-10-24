@@ -7,5 +7,7 @@ class ECRStack(core.Stack):
         super().__init__(scope, id, **kwargs)
 
         ecr.Repository(
-            self, id="CDKFargateFastAPI", repository_name=os.environ["REPOSITORY_NAME"]
+            self, id="CDKFargateFastAPI",
+            repository_name=os.environ["REPOSITORY_NAME"],
+            removal_policy=core.RemovalPolicy.DESTROY
         )

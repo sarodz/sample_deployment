@@ -1,6 +1,5 @@
 import os
 from dotenv import load_dotenv
-
 from aws_cdk import (
     core,
     aws_ec2 as ec2,
@@ -17,7 +16,7 @@ REGION = os.environ["AWS_REGION"]
 REPOSITORY = os.environ["REPOSITORY_NAME"]
 
 ROLE_ARN = f"arn:aws:iam::{ACCOUNT}:role/{ROLE}"
-ECR_REGISOTRY_ARN = f"{ACCOUNT}.dkr.ecr.{REGION}.amazonaws.com/{REPOSITORY}:latest"
+ECR_REGISTRY_ARN = f"{ACCOUNT}.dkr.ecr.{REGION}.amazonaws.com/{REPOSITORY}:latest"
 
 
 class ECSStack(core.Stack):
@@ -29,12 +28,12 @@ class ECSStack(core.Stack):
         cluster = ecs.Cluster(self, "CDKFargateCluster", vpc=vpc)
 
         role = iam.Role.from_role_arn(self, "CDKFargateECSTaskRole", ROLE_ARN)
-        image = ecs.ContainerImage.from_registry(ECR_REGISOTRY)
+        image = ecs.ContainerImage.from_registry(ECR_REGISTRY_ARN)
         task_definition = ecs.FargateTaskDefinition(
             scope=self, id="CDKFargateECSTask", execution_role=role, task_role=role
         )
 
-        port_mapping = ecs.PortMapping(container_port=8080, host_port=8080)
+        port_mapping = ecs.PortMapping(container_port=8000, host_port=8000)
         task_definition.add_container(
             id="CDKFargateContainer", image=image
         ).add_port_mappings(port_mapping)
